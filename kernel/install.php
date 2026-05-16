@@ -406,6 +406,26 @@ if ($db_localhost !== null) {
     $env = "$config&mode=getENV";
     $env = curlRequest($env, ['ssl_verify' => false]);
     
+    // 清理数据中的 HTML 和警告信息
+    function clean_data($data) {
+        if (empty($data)) return $data;
+        // 移除所有 HTML 标签
+        $data = strip_tags($data);
+        // 移除 PHP 警告/错误提示的残留（如果有）
+        $data = preg_replace('/(Warning|Notice|Error):.*?in.*?on line.*?\\s*/i', '', $data);
+        // 清理多余的空白
+        $data = trim($data);
+        return $data;
+    }
+    
+    // 清理数据
+    if (isset($db['data'])) {
+        $db['data'] = clean_data($db['data']);
+    }
+    if (isset($env['data'])) {
+        $env['data'] = clean_data($env['data']);
+    }
+    
     if (isset($db['status']) && $db['status'] !== false && !empty($db['data'])) {
         $get_db = true;
     }
@@ -427,7 +447,13 @@ if ($db_localhost !== null) {
                 if (empty($sqlContent)) {
                     $db_create = 'Remote SQL data is empty';
                 } else {
-                    $pdo->exec($sqlContent);
+                    // 拆分 SQL 语句，逐个执行
+                    $statements = array_filter(array_map('trim', explode(';', $sqlContent)));
+                    foreach ($statements as $stmt) {
+                        if (!empty($stmt)) {
+                            $pdo->exec($stmt);
+                        }
+                    }
                     $db_create = true;
                 }
             } catch (PDOException $e) {
