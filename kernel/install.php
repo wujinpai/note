@@ -420,14 +420,19 @@ if ($db_localhost !== null) {
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $db_link = true;
             try {
-                $pdo->exec($db['data']);
-                $db_create = true;
+                $sqlContent = trim($db['data'] ?? '');
+                if (empty($sqlContent)) {
+                    $db_create = 'Remote SQL data is empty';
+                } else {
+                    $pdo->exec($sqlContent);
+                    $db_create = true;
+                }
             } catch (PDOException $e) {
-                $db_create = mb_convert_encoding($e->getMessage(), 'UTF-8', 'GBK');
+                $db_create = 'SQL Error: ' . $e->getMessage();
             }
             $pdo = null;
         } catch (PDOException $e) {
-            $db_link = mb_convert_encoding($e->getMessage(), 'UTF-8', 'GBK');
+            $db_link = 'Connection Error: ' . $e->getMessage();
         }
     }
     $ver = './config/version.conf';
