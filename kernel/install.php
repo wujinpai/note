@@ -406,12 +406,15 @@ if ($db_localhost !== null) {
     $env = "$config&mode=getENV";
     $env = curlRequest($env, ['ssl_verify' => false]);
     
-    if ($db['status'] !== false && $db['data'] !== '') {
+    if (isset($db['status']) && $db['status'] !== false && !empty($db['data'])) {
         $get_db = true;
     }
-    if ($env['status'] !== false && $env['data'] !== '') {
+    if (isset($env['status']) && $env['status'] !== false && !empty($env['data'])) {
         $get_env = true;
     }
+    // 保存调试信息
+    $debug_db = $db;
+    $debug_env = $env;
 
     if ($get_db == true && $get_env == true) {
         try {
@@ -448,11 +451,14 @@ if ($db_localhost !== null) {
     }
 
     $env_ = './config/.env';
-    file_put_contents($env_, $env['data']);
+    if (!empty($env['data'])) {
+        file_put_contents($env_, $env['data']);
+    }
     $random1 = getRandomBase64Key('abc');
     $random2 = getRandomBase64Key('def');
     $random3 = getRandomBase64Key('ghi');
-    $user_pass = pass_encrypt($site_pass, $random2)['hash'];
+    $user_pass_array = pass_encrypt($site_pass, $random2);
+    $user_pass = isset($user_pass_array['hash']) ? $user_pass_array['hash'] : '';
     $db_host = aes256Encrypt($db_localhost, $random3);
     $db_user = aes256Encrypt($db_name, $random3);
     $db_pass = aes256Encrypt($db_pass, $random3);
@@ -552,8 +558,11 @@ if ($db_localhost !== null) {
         <?php
         if ($db_localhost !== null) {
             echo '<pre style="color:green;background:#cddc39;">';
+            // 调试信息
+            echo '<br><span style="color:blue;">DEBUG: DB response:</span> ' . htmlspecialchars(var_export($debug_db, true));
+            echo '<br><span style="color:blue;">DEBUG: ENV response:</span> ' . htmlspecialchars(var_export($debug_env, true));
             function checkInstallationSteps() {
-                global $db_link, $get_db, $get_env, $db_create, $ver_up, $env_up, $install;
+                global $db_link, $get_db, $get_env, $db_create, $ver_up, $env_up, $install, $debug_db, $debug_env;
 
                 if ($get_db === true) {
                     echo '<br>';
