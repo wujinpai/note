@@ -400,38 +400,31 @@ $get_db = false;
 $get_env = false;
 
 if ($db_localhost !== null) {
-    $config = "https://leton.top/info?domain=$domain&version=$version&UID=$UID";
-    $db = "$config&mode=getDBList";
-    $db = curlRequest($db, ['ssl_verify' => false]);
-    $env = "$config&mode=getENV";
-    $env = curlRequest($env, ['ssl_verify' => false]);
+    // 使用本地资源而不是远程API
+    $sql_file = __DIR__ . '/config/install.sql';
+    $env_template = __DIR__ . '/config/env.template';
     
-    // 清理数据中的 HTML 和警告信息
-    function clean_data($data) {
-        if (empty($data)) return $data;
-        // 移除所有 HTML 标签
-        $data = strip_tags($data);
-        // 移除 PHP 警告/错误提示的残留（如果有）
-        $data = preg_replace('/(Warning|Notice|Error):.*?in.*?on line.*?\\s*/i', '', $data);
-        // 清理多余的空白
-        $data = trim($data);
-        return $data;
-    }
+    $db = ['status' => false, 'data' => '', 'error' => ''];
+    $env = ['status' => false, 'data' => '', 'error' => ''];
     
-    // 清理数据
-    if (isset($db['data'])) {
-        $db['data'] = clean_data($db['data']);
-    }
-    if (isset($env['data'])) {
-        $env['data'] = clean_data($env['data']);
-    }
-    
-    if (isset($db['status']) && $db['status'] !== false && !empty($db['data'])) {
+    // 读取本地SQL文件
+    if (file_exists($sql_file)) {
+        $db['data'] = file_get_contents($sql_file);
+        $db['status'] = true;
         $get_db = true;
+    } else {
+        $db['error'] = "SQL file not found: $sql_file";
     }
-    if (isset($env['status']) && $env['status'] !== false && !empty($env['data'])) {
+    
+    // 读取本地env模板
+    if (file_exists($env_template)) {
+        $env['data'] = file_get_contents($env_template);
+        $env['status'] = true;
         $get_env = true;
+    } else {
+        $env['error'] = "Env template not found: $env_template";
     }
+    
     // 保存调试信息
     $debug_db = $db;
     $debug_env = $env;
@@ -584,11 +577,8 @@ if ($db_localhost !== null) {
         <?php
         if ($db_localhost !== null) {
             echo '<pre style="color:green;background:#cddc39;">';
-            // 调试信息
-            echo '<br><span style="color:blue;">DEBUG: DB response:</span> ' . htmlspecialchars(var_export($debug_db, true));
-            echo '<br><span style="color:blue;">DEBUG: ENV response:</span> ' . htmlspecialchars(var_export($debug_env, true));
             function checkInstallationSteps() {
-                global $db_link, $get_db, $get_env, $db_create, $ver_up, $env_up, $install, $debug_db, $debug_env;
+                global $db_link, $get_db, $get_env, $db_create, $ver_up, $env_up, $install;
 
                 if ($get_db === true) {
                     echo '<br>';
