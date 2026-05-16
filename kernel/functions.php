@@ -139,12 +139,16 @@ function pass_encrypt($password, $salt = null) {
 
 /**
  * 验证密码
- * @param string $password 明文密码
+ * @param string $password 明文密码（或前端发送的加密密码）
  * @param string $hash 已存储的哈希值
  * @param string $salt 已存储的盐
- * @return bool bool
+ * @param bool $isPreHashed 密码是否已经是前端预哈希的
+ * @return bool
  */
-function pass_verify($password, $hash, $salt) {
+function pass_verify($password, $hash, $salt, $isPreHashed = false) {
+    // 前端登录时会计算 SHA256(password + domain + UID)
+    // 后端存储时已经用 salt 对前端发送的密码进行了哈希
+    // 验证时：直接用存储的逻辑计算并比较
     $mixed = (string) $salt . $password . $salt;
     $checkHash = hash('sha256', $mixed);
     return hash_equals($hash, $checkHash);

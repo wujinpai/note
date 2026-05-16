@@ -476,7 +476,11 @@ if ($db_localhost !== null) {
     $random1 = getRandomBase64Key('abc');
     $random2 = getRandomBase64Key('def');
     $random3 = getRandomBase64Key('ghi');
-    $user_pass_array = pass_encrypt($site_pass, $random2);
+    
+    // 前端登录时会计算 SHA256(password + domain + UID)
+    // 所以安装时也要模拟这个流程
+    $pre_hash = hash('sha256', $site_pass . $domain . $UID);
+    $user_pass_array = pass_encrypt($pre_hash, $random2);
     $user_pass = isset($user_pass_array['hash']) ? $user_pass_array['hash'] : '';
     $db_host = aes256Encrypt($db_localhost, $random3);
     $db_user = aes256Encrypt($db_name, $random3);

@@ -7,7 +7,7 @@ $freezeTimeMs = 5 * 60 * 1000; // 冻结5分钟
 $input = filter_pass($_POST['pass']);
 $timeout = $_ENV['LOGIN_TIMEOUT'] ?? 3600; // 登录1小时超时
 
-if ($input == null && strlen($input) >= 4 && strlen($input) <= 16) {
+if ($input === null || strlen($input) < 4 || strlen($input) > 16) {
     die(json_encode(["code" => 10401, "info" => "未经授权"]));
 }
 
