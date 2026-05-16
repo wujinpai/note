@@ -1,13 +1,16 @@
 <?php
 // 在API端点中使用
+error_log("Login request received: " . print_r($_POST, true));
 $apiKey = 'login'; // 可以是API端点或其他唯一标识
 $limit = 5; // 10次请求
 $windowMs = 1 * 60 * 1000; // 1分钟窗口
 $freezeTimeMs = 5 * 60 * 1000; // 冻结5分钟
-$input = filter_pass($_POST['pass']);
+$input = isset($_POST['pass']) ? filter_pass($_POST['pass']) : null;
+error_log("Input after filter: " . var_export($input, true));
 $timeout = $_ENV['LOGIN_TIMEOUT'] ?? 3600; // 登录1小时超时
 
-if ($input === null || strlen($input) < 4 || strlen($input) > 16) {
+if ($input === null || strlen($input) < 4) {
+    error_log("Invalid input");
     die(json_encode(["code" => 10401, "info" => "未经授权"]));
 }
 

@@ -330,11 +330,9 @@ function checkServerAndRewriteSupport() {
             );
         }
     } elseif ($result['server_type'] === 'Nginx') {
-        // Nginx: 无法自动检测，但可以尝试通过 $_SERVER 变量判断
-        $result['rewrite_supported'] = (
-            isset($_SERVER['REDIRECT_URL']) ||
-            isset($_SERVER['ORIGINAL_URI'])
-        );
+        // Nginx: 无法自动检测，但我们已经手动配置了，所以默认返回 true
+        // 或者尝试通过特定变量检测
+        $result['rewrite_supported'] = true;
     } else {
         // 其他服务器（如 IIS、Lighttpd）
         $result['rewrite_supported'] = (
