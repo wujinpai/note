@@ -94,7 +94,21 @@ function loginPanel() {
                         //     console.info('login pass');
                         // }
                     });
-                    const pass = await hashString('SHA-256', userpass.value + doman + getDomFromId('app').dataset.uid);
+                    // 获取站点配置（包含域名）
+                    let domainConfig = doman;
+                    try {
+                        const domainRes = await fetch('/kernel/api.php', {
+                            method: 'POST',
+                            body: new URLSearchParams({ api: 'get_domain_config' })
+                        });
+                        const domainData = await domainRes.json();
+                        if (domainData.code === 10200 && domainData.data && domainData.data.domain) {
+                            domainConfig = domainData.data.domain;
+                        }
+                    } catch (err) {
+                        // 如果获取失败，使用当前域名
+                    }
+                    const pass = await hashString('SHA-256', userpass.value + domainConfig + getDomFromId('app').dataset.uid);
                     let login = await fetch_login.fetch('/kernel/api.php', {
                         method: 'POST',
                         body: new URLSearchParams({
