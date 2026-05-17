@@ -1,14 +1,20 @@
 <?php
-switch (getenv('APP_ENV')) {
-    case 'development':
-        dev_mode(true);
-        break;
-    case 'production':
-        dev_mode(true);
-        break;
-    default:
-        die('未配置运行环境ENV');
+// 定义dev_mode先，然后直接启用开发模式显示错误
+function dev_mode($devMode = true) {
+    if ($devMode) {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+        define('APP_MODE', 'development');
+    } else {
+        ini_set('display_startup_errors', 0);
+        error_reporting(0);
+        define('APP_MODE', 'production');
+    }
 }
+
+// 启用调试模式，方便安装时看到错误
+dev_mode(true);
 
 function config($dir) {
     $envContent = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/' . $dir);
@@ -150,19 +156,6 @@ function ENVManage($envPath, $action, $key, $value = null) {
     }
 
     return true; // 没有变化也视为成功
-}
-
-function dev_mode($devMode = true) {
-    if ($devMode) {
-        ini_set('display_errors', 1);
-        ini_set('display_startup_errors', 1);
-        error_reporting(E_ALL);
-        define('APP_MODE', 'development');
-    } else {
-        ini_set('display_startup_errors', 0);
-        error_reporting(0);
-        define('APP_MODE', 'production');
-    }
 }
 
 function ifs(string $a, array $b, bool $mode = true) {
