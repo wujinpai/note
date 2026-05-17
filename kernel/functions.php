@@ -366,7 +366,10 @@ function compressImageWithGD($input, $outputPath, $quality = 80, $size = null, $
     if (!in_array($format, ['webp', 'png', 'jpg', 'jpeg'])) throw new Exception('Unsupported format. Use webp, png or jpg.');
 
     $isBase64 = preg_match('/^data:image\/(\w+);base64,/', $input, $matches);
+    $mime = null;
     if ($isBase64) {
+        // 获取 MIME 类型
+        $mime = 'image/' . $matches[1];
         $base64Data = substr($input, strpos($input, ',') + 1);
         $imageData = base64_decode($base64Data);
         if ($imageData === false) throw new Exception('Invalid Base64 data.');
@@ -425,7 +428,7 @@ function compressImageWithGD($input, $outputPath, $quality = 80, $size = null, $
         }
     } else {
         $dst = imagecreatetruecolor($srcW, $srcH);
-        if (in_array($format, ['png', 'webp']) || in_array($mime, ['image/png', 'image/gif', 'image/webp'])) {
+        if (in_array($format, ['png', 'webp']) || ($mime && in_array($mime, ['image/png', 'image/gif', 'image/webp']))) {
             imagealphablending($dst, false);
             imagesavealpha($dst, true);
             $transparent = imagecolorallocatealpha($dst, 0, 0, 0, 127);
