@@ -1,18 +1,34 @@
 <?php
-// 启用开发模式以显示错误
-match (getenv('APP_ENV')) {
-    'development' => dev_mode(true),
-    'production' => dev_mode(false),
-    default => die('未配置运行环境ENV')
-};
+// 先加载配置，再设置模式
+function _DIR_() {
+    return $_SERVER['DOCUMENT_ROOT'] . '/';
+}
+
+function config($dir) {
+    $envContent = file_get_contents(_DIR_() . $dir);
+    $lines = explode("\n", $envContent);
+    foreach ($lines as $line) {
+        if (strpos($line, '=') !== false) {
+            list($key, $value) = explode('=', $line, 2);
+            $_ENV[trim($key)] = trim($value, "'\" ");
+        }
+    }
+}
+
+// 先检查 .env 并加载配置
+if (file_exists(_DIR_() . 'kernel/config/.env')) {
+    config('kernel/config/.env');
+    config('kernel/config/version.conf');
+}
+
+// 现在设置应用模式 - 使用 $_ENV['APP_ENV'] 或默认 production
+$app_env = $_ENV['APP_ENV'] ?? 'production';
+dev_mode($app_env === 'development');
+
 ini_set('session.gc_maxlifetime', 3600); // 设置为 1 小时
 session_start(); // 启动会话
 $_SESSION['is_lg_ok'] = $_SESSION['is_lg_ok'] ?? null;
 @$_COOKIE['auth_token'] ?? $_SESSION['is_lg_ok'] = false;
-
-function _DIR_() {
-    return $_SERVER['DOCUMENT_ROOT'] . '/';
-}
 
 /**
  * 自动加载器
@@ -26,25 +42,12 @@ spl_autoload_register(function ($class) {
     }
 });
 
-// 手动解析 .env 文件
-function config($dir) {
-    $envContent = file_get_contents(_DIR_() . $dir);
-    $lines = explode("\n", $envContent);
-    foreach ($lines as $line) {
-        if (strpos($line, '=') !== false) {
-            list($key, $value) = explode('=', $line, 2);
-            $_ENV[trim($key)] = trim($value, "'\" "); // 处理引号和空格
-        }
-    }
-}
-
+// 如果 .env 不存在，则重定向到安装程序
 if (!file_exists(_DIR_() . 'kernel/config/.env')) {
     header('Location: /kernel/install.php');
     exit;
 }
 
-config('kernel/config/.env');
-config('kernel/config/version.conf');
 @$_u = trim($_ENV['UID']);
 $_DOM = str_replace('www.', '', $_SERVER['HTTP_HOST']);
 
