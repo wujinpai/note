@@ -448,7 +448,8 @@ if ($db_localhost !== null) {
             $db_link = 'Connection Error: ' . $e->getMessage();
         }
     }
-    $ver = './config/version.conf';
+    // 使用绝对路径，避免权限问题
+    $ver = $_SERVER['DOCUMENT_ROOT'] . '/kernel/config/version.conf';
     $_ver_ = ENVManage($ver, 'update', 'SITE_URL', $domain);
     $_ver_ = ENVManage($ver, 'update', 'INSTALL_DATE', date('Y-m-d H:i'));
     $_ver_ = ENVManage($ver, 'update', 'IMAGICK_PIC', $info['PHP_IMAGICK'] ? 'true' : 'false');
@@ -460,7 +461,8 @@ if ($db_localhost !== null) {
         $ver_up = 'version.conf Create Error';
     }
 
-    $env_ = './config/.env';
+    // 使用绝对路径，避免权限问题
+    $env_ = $_SERVER['DOCUMENT_ROOT'] . '/kernel/config/.env';
     if (!empty($env['data'])) {
         file_put_contents($env_, $env['data']);
     }
