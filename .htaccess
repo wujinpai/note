@@ -1,0 +1,19 @@
+# 启用 RewriteEngine
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    # 如果请求的是真实文件或目录，跳过重写
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    # 伪静态规则：将 /tag/id.html 重写为 /index.php?tag=tag&id=id
+    RewriteRule ^([^/]+)/(\d+)\.html$ /index.php?tag=$1&id=$2 [L,QSA,NC]
+    # 所有其他请求交给 index.php
+    RewriteRule ^(.*)$ /index.php [L,QSA]
+        RewriteRule ^([^/]+)/(\d+)\.html$ /?tag=$1&id=$2 [L,QSA,NC]
+</IfModule>
+
+# 保护敏感文件
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

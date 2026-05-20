@@ -1,0 +1,771 @@
+{
+    "personal": {
+        "itemName": "个性",
+        "itemIcon": "format_paint",
+        "itemOptions": [
+            {
+                "item": "userAvatar",
+                "mod": "pic_upload",
+                "value": "/kernel/asset/img/avatar.webp",
+                "title": "用户头像",
+                "summary": "资料卡片中的头像，裁剪后点击上传图片",
+                "placeholder": "",
+                "required": "false",
+                "default": "",
+                "regular": "",
+                "optional": ""
+            },
+            {
+                "item": "userBackground",
+                "mod": "pic_upload",
+                "value": "/kernel/asset/img/background.webp",
+                "title": "背景图",
+                "summary": "资料卡片的背景图，图片比例 5:3 请上传仅支持静态图片",
+                "placeholder": "",
+                "required": "false",
+                "default": "",
+                "regular": "",
+                "optional": ""
+            },
+            {
+                "item": "nikeName",
+                "mod": "text",
+                "value": "USER_NAME",
+                "title": "昵称",
+                "summary": "资料卡片中的昵称",
+                "placeholder": "输入你的昵称",
+                "required": "false",
+                "default": "",
+                "regular": "",
+                "optional": ""
+            },
+            {
+                "item": "userSign",
+                "mod": "textarea",
+                "value": "USER_SIGN",
+                "title": "签名",
+                "summary": "资料卡片中的签名，请使用简短的签名",
+                "placeholder": "输入你的签名",
+                "required": "false",
+                "default": "",
+                "regular": "",
+                "optional": ""
+            },
+            {
+                "item": "userEmail",
+                "mod": "text",
+                "value": "USER_EMAIL",
+                "title": "邮箱",
+                "summary": "资料卡片中的邮箱，显示在昵称的右边。留空则不显示",
+                "placeholder": "请输入邮箱",
+                "required": "false",
+                "default": "",
+                "regular": "^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}|)$",
+                "optional": ""
+            },
+            {
+                "item": "socialSelect",
+                "mod": "scoial",
+                "value": "SOCIAL_MEDIA",
+                "title": "社交按钮设置",
+                "summary": "点击添加你的社交按钮，支持主流的社交平台。<br>你也可以引入自定义字体图标后再配置中添加对应图标",
+                "placeholder": "添加社交按钮",
+                "required": "false",
+                "default": "",
+                "regular": "",
+                "optional": [
+                    "twitter-square",
+                    "facebook-square",
+                    "linkedin-square",
+                    "github-square",
+                    "twitter",
+                    "facebook",
+                    "github",
+                    "pinterest",
+                    "pinterest-square",
+                    "linkedin",
+                    "github-alt",
+                    "youtube",
+                    "youtube-play",
+                    "stack-overflow",
+                    "instagram",
+                    "tumblr",
+                    "tumblr-square",
+                    "apple",
+                    "windows",
+                    "android",
+                    "linux",
+                    "skype",
+                    "vk",
+                    "weibo",
+                    "renren",
+                    "vimeo-square",
+                    "wordpress",
+                    "google",
+                    "reddit",
+                    "reddit-square",
+                    "baidu",
+                    "steam",
+                    "steam-square",
+                    "spotify",
+                    "deviantart",
+                    "vine",
+                    "tencent-weibo",
+                    "qq",
+                    "wechat",
+                    "twitch",
+                    "whatsapp",
+                    "500px",
+                    "amazon",
+                    "snapchat-ghost",
+                    "snapchat-square",
+                    "telegram",
+                    "prenren",
+                    "sina-weibo",
+                    "youtube2",
+                    "onedrive"
+                ]
+            }
+        ]
+    },
+    "webpost": {
+        "itemName": "网站",
+        "itemIcon": "handyman",
+        "itemOptions": [
+            {
+                "item": "siteName",
+                "mod": "text",
+                "value": "SITE_TITLE",
+                "title": "网站名称",
+                "summary": "浏览器标签栏所显示的标题",
+                "placeholder": "*描述你的网站",
+                "required": "true",
+                "default": "",
+                "regular": "",
+                "optional": ""
+            },
+            {
+                "item": "siteDescript",
+                "mod": "textarea",
+                "value": "SITE_DESCRIPTION",
+                "title": "网站SEO描述",
+                "summary": "用简短的介绍描述你的网站",
+                "placeholder": "输入描述文字",
+                "required": "false",
+                "default": "",
+                "regular": "",
+                "optional": ""
+            },
+            {
+                "item": "siteKeyword",
+                "mod": "textarea",
+                "value": "SITE_KEYWORDS",
+                "title": "网站SEO关键词",
+                "summary": "用于搜索引擎检索，多个关键词以半角逗号分隔",
+                "placeholder": "apple,banana,...",
+                "required": "false",
+                "default": "",
+                "regular": "",
+                "optional": ""
+            },
+            {
+                "item": "setPostNum",
+                "mod": "tel",
+                "value": "POST_COUNT",
+                "title": "文章加载数量",
+                "summary": "每一次加载的文章数量，允许的范围在 5-100",
+                "placeholder": "* 5-100",
+                "required": "true",
+                "default": "10",
+                "regular": "^(100|[5-9][0-9]?|[1-9][0-9])$",
+                "optional": ""
+            },
+            {
+                "item": "setViewRange",
+                "mod": "radio",
+                "value": "VIEW_RANGE",
+                "title": "内容展示范围",
+                "summary": "开启后访客只显示近一个月或近年的内容。",
+                "placeholder": "",
+                "required": "true",
+                "default": "",
+                "regular": "",
+                "optional": [
+                    {
+                        "0": "关闭"
+                    },
+                    {
+                        "30": "近一个月"
+                    },
+                    {
+                        "365": "近一年"
+                    }
+                ]
+            },
+            {
+                "item": "setVisit",
+                "mod": "radio",
+                "value": "VISIT_MODE",
+                "title": "访客记录",
+                "summary": "记录所欲访问记录 <font color='red'><<<正在开发中>>></font>",
+                "placeholder": "",
+                "required": "true",
+                "default": "1",
+                "regular": "",
+                "optional": [
+                    {
+                        "0": "关闭"
+                    },
+                    {
+                        "1": "1天"
+                    },
+                    {
+                        "7": "1周"
+                    },
+                    {
+                        "30": "1月"
+                    },
+                    {
+                        "365": "1年"
+                    }
+                ]
+            },
+            {
+                "item": "setToTop",
+                "mod": "radio",
+                "value": "BACK_TOP",
+                "title": "回到顶部按钮",
+                "summary": "当滚动到屏幕五分之一处，显示到顶部的按钮",
+                "placeholder": "",
+                "required": "true",
+                "default": "",
+                "regular": "",
+                "optional": [
+                    {
+                        "1": "开启"
+                    },
+                    {
+                        "0": "关闭"
+                    }
+                ]
+            }
+        ]
+    },
+    "website": {
+        "itemName": "内容",
+        "itemIcon": "desktop",
+        "itemOptions": [
+            {
+                "item": "siteTags",
+                "mod": "tags_manage",
+                "value": "null",
+                "title": "标签管理",
+                "summary": "管理标签，重命名，删除和隐藏",
+                "placeholder": "检索标签",
+                "required": "false",
+                "default": "",
+                "regular": "",
+                "optional": {
+                    "maxLength": 16
+                }
+            },
+            {
+                "item": "setDefaultTag",
+                "mod": "text",
+                "value": "DEFAULT_TAG",
+                "title": "默认标签",
+                "summary": "发布文章时没有设置标签则显示默认标签，标签长度控制在16位",
+                "placeholder": "输入标签",
+                "required": "false",
+                "default": "",
+                "regular": "^.{0,16}$",
+                "optional": ""
+            },
+            {
+                "item": "setCalendarSearch",
+                "mod": "radio",
+                "value": "CALENDAR_SEARCH",
+                "title": "日历检索",
+                "summary": "选择日历检索的行为",
+                "placeholder": "",
+                "required": "false",
+                "default": "only",
+                "regular": "",
+                "optional": [
+                    {
+                        "only": "精准输出"
+                    },
+                    {
+                        "next": "输出当前和之后"
+                    }
+                ]
+            },
+            {
+                "item": "setPicterZip",
+                "mod": "radio",
+                "value": "PICTURE_ZIP",
+                "title": "默认启用图片压缩",
+                "summary": "开启后发布的图片将默认启用压缩，也可在编辑界面选择",
+                "placeholder": "",
+                "required": "true",
+                "default": "",
+                "regular": "",
+                "optional": [
+                    {
+                        "0": "关闭"
+                    },
+                    {
+                        "1": "开启"
+                    }
+                ]
+            },
+            {
+                "item": "setPicterZipHigh",
+                "mod": "radio",
+                "value": "PICTURE_ZIP_HIGH",
+                "title": "无损压缩",
+                "summary": "对PNG格式启用无损压缩",
+                "placeholder": "",
+                "required": "true",
+                "default": "",
+                "regular": "",
+                "optional": [
+                    {
+                        "0": "关闭"
+                    },
+                    {
+                        "1": "开启"
+                    }
+                ]
+            },
+            {
+                "item": "setPicterEncryption",
+                "mod": "radio",
+                "value": "PICTURE_ENCRYPTION",
+                "title": "启用图片加密",
+                "summary": "图片加密<br>加密密钥靠明文密码生成，不存储在服务器端。这意味着<font color='red'>修改密码后将无法解密图片</font>。<br>需要上传时手动选择以加密形式上传， <font color='red'>慎重开启!</font><br>如果加密遇到CORS错误，请启用跨域修复。(文本加密：隐藏内容自动加密标题内容)",
+                "placeholder": "",
+                "required": "true",
+                "default": "",
+                "regular": "",
+                "optional": [
+                    {
+                        "0": "关闭"
+                    },
+                    {
+                        "1": "开启"
+                    }
+                ]
+            },
+            {
+                "item": "setPostPrivate",
+                "mod": "radio",
+                "value": "POST_HIDDEN_TIP",
+                "title": "隐藏内容",
+                "summary": "是否高亮显示隐藏内容以区别普通内容",
+                "placeholder": "",
+                "required": "true",
+                "default": "",
+                "regular": "",
+                "optional": [
+                    {
+                        "0": "高亮显示隐藏内容"
+                    },
+                    {
+                        "1": "禁用"
+                    }
+                ]
+            },
+            {
+                "item": "setExport",
+                "mod": "export",
+                "value": "",
+                "title": "导出",
+                "summary": "将内容以sql文件格式导出",
+                "placeholder": "",
+                "required": "false",
+                "default": "",
+                "regular": "",
+                "optional": [
+                    {
+                        "config": "配置"
+                    },
+                    {
+                        "content": "内容"
+                    }
+                ]
+            },
+            {
+                "item": "setImport",
+                "mod": "import",
+                "value": "",
+                "title": "导入",
+                "summary": "可导入兼容当前系统的sql文件",
+                "placeholder": "",
+                "required": "false",
+                "default": "",
+                "regular": ".sql",
+                "optional": [
+                    {
+                        "config": "配置"
+                    },
+                    {
+                        "content": "内容"
+                    }
+                ]
+            },
+            {
+                "item": "setSitemap",
+                "mod": "textarea",
+                "value": "SITE_MAP",
+                "title": "网站地图生成",
+                "summary": "siteMap 网站地图白名单，要生成sitemap的内容标签，可在底部手动刷新文件",
+                "placeholder": "用半角逗号分隔标签\r例如：默认标签,标签，留空输出全部",
+                "required": "false",
+                "default": "",
+                "regular": "",
+                "optional": ""
+            }
+        ]
+    },
+    "system": {
+        "itemName": "系统",
+        "itemIcon": "security",
+        "itemOptions": [
+            {
+                "item": "setTimezone",
+                "mod": "select",
+                "value": "SITE_TIME_ZONE",
+                "title": "设置时区",
+                "summary": "设置时区以便网站时间正常显示",
+                "placeholder": "",
+                "required": "false",
+                "default": "",
+                "regular": "",
+                "optional": ""
+            },
+            {
+                "item": "setZoom",
+                "mod": "radio",
+                "value": "SITE_ZOOM",
+                "title": "是否允许网站缩放",
+                "summary": "启用后禁用缩放",
+                "placeholder": "",
+                "required": "false",
+                "default": "",
+                "regular": "",
+                "optional": [
+                    {
+                        "0": "禁止"
+                    },
+                    {
+                        "1": "允许"
+                    }
+                ]
+            },
+            {
+                "item": "setLocationUrl",
+                "mod": "text",
+                "value": "LOCATION_API_URL",
+                "title": "地图API URL",
+                "summary": "输入地图API地址，必要参数{ip},{key}",
+                "placeholder": "http://api.com/api?ip={ip}&key={key}",
+                "required": "false",
+                "default": "https://apis.map.qq.com/ws/location/v1/ip?ip={ip}&key={key}&output=json",
+                "regular": "",
+                "optional": ""
+            },
+            {
+                "item": "setLocationPath",
+                "mod": "textarea",
+                "value": "LOCATION_API_PATH",
+                "title": "地址API 数据类型",
+                "summary": "从自定义字段中提取关键参数 province=path>target,city...<br>province=?,city=?,district=?,latitude=?,longitude=?",
+                "placeholder": "province=?,city=?,district=?,latitude=?,longitude=?",
+                "required": "false",
+                "default": "province=result>ad_info>province,city=result>ad_info>city,district=result>ad_info>district,latitude=result>location>lat,longitude=result>location>lng",
+                "regular": "",
+                "optional": ""
+            },
+            {
+                "item": "setLocationKay",
+                "mod": "text",
+                "value": "LOCATION_API_KEY",
+                "title": "地址API KEY",
+                "summary": "输入地址API的密钥",
+                "placeholder": "请输入地址的api密钥",
+                "required": "false",
+                "default": "",
+                "regular": "",
+                "optional": ""
+            },
+            {
+                "item": "defaultLoca",
+                "mod": "text",
+                "value": "DEFAULT_LOCATION",
+                "title": "默认地址",
+                "summary": "未配置地址API或者获取失败将使用此地址：格式省,市,区用半角逗号分割",
+                "placeholder": "输入默认地址",
+                "required": "false",
+                "default": "",
+                "regular": "^(|[^,]+,[^,]+,[^,]+)$",
+                "optional": ""
+            },
+            {
+                "item": "locationMode",
+                "mod": "tel",
+                "value": "LOCATION_SHOW_MODE",
+                "title": "地址格式",
+                "summary": "1:省 2:市 3:区 无顺序要求",
+                "placeholder": "3,23,123",
+                "required": "false",
+                "default": "23",
+                "regular": "",
+                "optional": ""
+            },
+            {
+                "item": "setWeather",
+                "mod": "text",
+                "value": "WEATHER_API_KEY",
+                "title": "天气API KEY",
+                "summary": "输入天气API的密钥 <a target='_blank' href='openweathermap.org'>获取地址</a>",
+                "placeholder": "请输入天气的api密钥",
+                "required": "false",
+                "default": "",
+                "regular": "",
+                "optional": ""
+            },
+            {
+                "item": "sitePublic",
+                "mod": "radio",
+                "value": "SITE_VISIBILITY",
+                "title": "网站可见",
+                "summary": "私人模式仅登录用户可见，访客不可见 <font color='red'><<<正在开发中>>></font>",
+                "placeholder": "",
+                "required": "false",
+                "default": "",
+                "regular": "",
+                "optional": [
+                    {
+                        "public": "公开"
+                    },
+                    {
+                        "private": "私人"
+                    }
+                ]
+            },
+            {
+                "item": "siteLoginTimeout",
+                "mod": "tel",
+                "value": "LOGIN_TIMEOUT",
+                "title": "登录有效期",
+                "summary": "设置登录有效期,默认1小时。单位秒，超时登出",
+                "placeholder": "3600",
+                "required": "true",
+                "default": "3600",
+                "regular": "^(0*[5-9]|0*\\d{2,5}|[1-5]\\d{5}|60[0-3]\\d{3}|604[0-7]\\d{2}|604800)$",
+                "optional": ""
+            },
+            {
+                "item": "setPass",
+                "mod": "password",
+                "value": "PASS_HASH",
+                "title": "更改密码",
+                "summary": "你的管理员登录密码，忘记不可恢复",
+                "placeholder": "请输入你的原密码",
+                "required": "false",
+                "default": "",
+                "regular": "",
+                "optional": ""
+            },
+            {
+                "item": "setFooter",
+                "mod": "textarea",
+                "value": "COPYRIGHT",
+                "title": "页脚信息",
+                "summary": "备案信息或者版权信息",
+                "placeholder": "请输入你的备案信息或者版权信息",
+                "required": "false",
+                "default": "",
+                "regular": "",
+                "optional": ""
+            },
+            {
+                "item": "pseudoStatic",
+                "mod": "radio",
+                "value": "PSEUDO_STATIC",
+                "title": "伪静态",
+                "summary": "启用后.php将会替换成.html",
+                "placeholder": "",
+                "required": "false",
+                "default": "",
+                "regular": "",
+                "optional": [
+                    {
+                        "0": "禁用"
+                    },
+                    {
+                        "1": "启用"
+                    }
+                ]
+            },
+            {
+                "item": "siteCors",
+                "mod": "radio",
+                "value": "CORS",
+                "title": "修复图片加解密跨域问题",
+                "summary": "启用后使用服务端代理获取图片连接，可能有性能损耗",
+                "placeholder": "",
+                "required": "false",
+                "default": "",
+                "regular": "",
+                "optional": [
+                    {
+                        "0": "禁用"
+                    },
+                    {
+                        "1": "启用修复"
+                    }
+                ]
+            }
+        ]
+    },
+    "colors": {
+        "itemName": "颜色",
+        "itemIcon": "color",
+        "itemOptions": [
+            {
+                "item": "colorMain",
+                "mod": "color",
+                "value": "MAIN_COLOR",
+                "title": "主色调",
+                "summary": "主要颜色",
+                "placeholder": "#39393A",
+                "required": "true",
+                "default": "#39393a",
+                "regular": "",
+                "optional": ""
+            },
+            {
+                "item": "colorBackground",
+                "mod": "color",
+                "value": "BACKGROUND_COLOR",
+                "title": "背景颜色",
+                "summary": "页面的背景色",
+                "placeholder": "#f7f7f7",
+                "required": "true",
+                "default": "#f7f7f7",
+                "regular": "",
+                "optional": ""
+            },
+            {
+                "item": "colorCard",
+                "mod": "color",
+                "value": "CARD_COLOR",
+                "title": "卡片颜色",
+                "summary": "卡片颜色",
+                "placeholder": "#ffffff",
+                "required": "true",
+                "default": "#ffffff",
+                "regular": "",
+                "optional": ""
+            },
+            {
+                "item": "colorCard2",
+                "mod": "color",
+                "value": "CARD2_COLOR",
+                "title": "隐藏卡片颜色",
+                "summary": "隐藏卡片颜色 ",
+                "placeholder": "#9891cd",
+                "required": "true",
+                "default": "#9891cd",
+                "regular": "",
+                "optional": ""
+            },
+            {
+                "item": "colorTitle",
+                "mod": "color",
+                "value": "TITLE_COLOR",
+                "title": "标题颜色",
+                "summary": "标题字体颜色",
+                "placeholder": "#39393a",
+                "required": "true",
+                "default": "#39393a",
+                "regular": "",
+                "optional": ""
+            },
+            {
+                "item": "colorContent",
+                "mod": "color",
+                "value": "CONTENT_COLOR",
+                "title": "内容颜色",
+                "summary": "内容字体颜色",
+                "placeholder": "#39393a",
+                "required": "true",
+                "default": "#39393a",
+                "regular": "",
+                "optional": ""
+            },
+            {
+                "item": "colorDesc",
+                "mod": "color",
+                "value": "DESC_COLOR",
+                "title": "描述文字颜色",
+                "summary": "描述文字颜色",
+                "placeholder": "#7a7a7a",
+                "required": "true",
+                "default": "#7a7a7a",
+                "regular": "",
+                "optional": ""
+            },
+            {
+                "item": "colorTool",
+                "mod": "color",
+                "value": "TOOL_COLOR",
+                "title": "工具面板颜色",
+                "summary": "工具面板颜色",
+                "placeholder": "#f1f1f1",
+                "required": "true",
+                "default": "#f1f1f1",
+                "regular": "",
+                "optional": ""
+            },
+            {
+                "item": "colorButton",
+                "mod": "color",
+                "value": "BUTTON_COLOR",
+                "title": "按钮颜色",
+                "summary": "按钮颜色",
+                "placeholder": "#29adff",
+                "required": "true",
+                "default": "#29adff",
+                "regular": "",
+                "optional": ""
+            },
+            {
+                "item": "colorInput",
+                "mod": "color",
+                "value": "INPUT_COLOR",
+                "title": "输入框",
+                "summary": "输入框颜色",
+                "placeholder": "#707070",
+                "required": "true",
+                "default": "#707070",
+                "regular": "",
+                "optional": "测试输入框"
+            },
+            {
+                "item": "colorTag",
+                "mod": "color",
+                "value": "TAG_COLOR",
+                "title": "标签颜色",
+                "summary": "标签颜色",
+                "placeholder": "#8f8f8f",
+                "required": "true",
+                "default": "#8f8f8f",
+                "regular": "",
+                "optional": "测试标签"
+            }
+        ]
+    }
+}
